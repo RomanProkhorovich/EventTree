@@ -72,7 +72,6 @@ namespace KSR.Model
 
         protected void AddNode(string name, string[] reasons, string[] results)
         {
-            я говноед
 
         }
     }
