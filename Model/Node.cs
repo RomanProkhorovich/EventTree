@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KSR.Model
+﻿namespace KSR.Model
 {
     internal class Node: Result,Reason
     {
