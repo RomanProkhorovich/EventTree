@@ -27,14 +27,14 @@
 
         public void AddReason(Node node)
         {
-            if (Reasons.Find(n=>n.Name==node.Name)==null)
+            if (string.IsNullOrEmpty(node.Name) && Reasons.Find(n=>n.Name==node.Name)==null)
             {
                 Reasons.Add(node);
             }
         }
         public void AddResult(Node node)
         {
-            if (Results.Find(n => n.Name == node.Name) == null)
+            if (string.IsNullOrEmpty(node.Name) &&Results.Find(n => n.Name == node.Name) == null)
             {
                 Results.Add(node);
             }

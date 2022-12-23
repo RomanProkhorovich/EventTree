@@ -87,4 +87,12 @@ internal abstract class EventTree
                 node.AddReason(n);
             }
     }
+
+    public void PrintInfo()
+    {
+        foreach (var item in Nodes)
+        {
+            MessageBox.Show(item.ToString());
+        }
+    }
 }
