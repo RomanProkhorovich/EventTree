@@ -8,5 +8,9 @@ namespace KSR.Model
 {
     internal class UniversityEventTree : EventTree
     {
+        public override void Init()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

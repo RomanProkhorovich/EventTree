@@ -8,5 +8,9 @@ namespace KSR.Model
 {
     internal class OfficeEventTree: EventTree
     {
+        public override void Init()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

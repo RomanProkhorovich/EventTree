@@ -15,6 +15,8 @@ internal abstract class EventTree
         throw new ArgumentOutOfRangeException(name);
     }
 
+    public abstract void Init();
+
     protected List<Node> FindResults(string name)
     {
         var node = Nodes.Find(n => n.Name == name);
@@ -57,8 +59,8 @@ internal abstract class EventTree
     protected void AddNode(string name, string[]? reasons, string[]? results)
     {
         var n = new Node(name);
-
-        Nodes.Add(n);
+        if (Nodes.Find(node1 => node1.Name == name)==null)
+            Nodes.Add(n);
         if (reasons != null)
             foreach (var item in reasons)
             {
@@ -68,8 +70,8 @@ internal abstract class EventTree
                     node=new Node(item);
                     Nodes.Add(node);
                 }
-                n.Reasons.Add(node);
-                node.Results.Add(n);
+                n.AddReason(node);
+                node.AddResult(n);
             }
 
         if (results != null)
@@ -81,8 +83,8 @@ internal abstract class EventTree
                     node = new Node(item);
                     Nodes.Add(node);
                 }
-                n.Reasons.Add(node);
-                node.Reasons.Add(n);
+                n.AddResult(node);
+                node.AddReason(n);
             }
     }
 }

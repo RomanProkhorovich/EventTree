@@ -20,11 +20,17 @@ namespace KSR.Model
             switch (type)
             {
                 case EventTreeType.Office:
-                    return new OfficeEventTree();
-                case EventTreeType.University:
-                    return new UniversityEventTree();
+                {
+                    var m = new OfficeEventTree();
+                    m.Init();
+                    return m;
+                    }
                 case EventTreeType.Factory:
-                    return new ManufactoryEventTree();
+                {
+                    var m = new ManufactoryEventTree();
+                    m.Init();
+                    return m;
+                }
             }
             throw new ArgumentNullException("type");
         }

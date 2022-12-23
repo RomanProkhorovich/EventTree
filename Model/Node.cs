@@ -15,17 +15,30 @@
             string reasons = "";
             foreach (var item in Reasons)
             {
-                reasons += item.Name+"\n";
+                reasons += "\t"+item.Name+"\n";
             }
             string res = "";
             foreach (var item in Results)
             {
-                res += item.Name + "\n";
+                res +="\t"+ item.Name + "\n";
             }
-            return Name+"Reasons:\n"+ reasons + "Results:\n" + res;
+            return Name+"\nReasons:\n"+ reasons + "Results:\n" + res;
         }
 
-        // public void AddNewReasonByReasons
+        public void AddReason(Node node)
+        {
+            if (Reasons.Find(n=>n.Name==node.Name)==null)
+            {
+                Reasons.Add(node);
+            }
+        }
+        public void AddResult(Node node)
+        {
+            if (Results.Find(n => n.Name == node.Name) == null)
+            {
+                Results.Add(node);
+            }
+        }
 
     }
 }
