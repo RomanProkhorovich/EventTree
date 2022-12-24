@@ -12,15 +12,6 @@ namespace KSR.Model
     {
         public ManufactoryEventTree()
         {
-            // List<Node> nodes = new List<Node>();
-            /*nodes.Add(new Node("Node1"));
-            this.AddNode("name1", null,nodes);
-            this.AddNode("name2", nodes, null);*/
-
-
-            // nodes.Add(new Node("Node1"));
-
-          
         }
 
         public override void Init()

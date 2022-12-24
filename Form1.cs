@@ -10,7 +10,7 @@ namespace KSR
             InitializeComponent();
 
            
-            EventTree tree= EventTreeFactory.CreateTree(EventTreeType.Factory);
+            EventTree tree= EventTreeFactory.CreateTree(EventTreeType.Office);
         }
     }
 }

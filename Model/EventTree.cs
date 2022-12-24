@@ -1,4 +1,6 @@
-﻿namespace KSR.Model;
+﻿using System.Drawing;
+
+namespace KSR.Model;
 
 internal abstract class EventTree
 {
@@ -7,7 +9,7 @@ internal abstract class EventTree
     protected List<Node> FindReasons(string name)
     {
         var node = Nodes.Find(n => n.Name == name);
-        if (node!=null)
+        if (node != null)
         {
             return node.Reasons;
         }
@@ -28,48 +30,66 @@ internal abstract class EventTree
         throw new ArgumentOutOfRangeException(name);
     }
 
-    //useless??
-    protected void AddNode(string name, List<Node> reasons, List<Node> results)
+
+    protected void AddNode(Node node, Node[]? reasons, Node[]? results)
     {
-        var n = new Node(name);
-        if (results != null)
-            n.Results.AddRange(results);
-        if (reasons != null)
-            n.Reasons.AddRange(reasons);
-        Nodes.Add(n);
+        AppendNode(node);
 
-        if (reasons != null)
-            foreach (var item in reasons)
-            {
-                if (Nodes.Find(n => n.Name == item.Name) == null) Nodes.Add(item);
+        AddReasons(node, reasons);
 
-                item.Results.Add(n);
-            }
-
-        if (results != null)
-            foreach (var item in results)
-            {
-                if (Nodes.Find(n => n.Name == item.Name) == null) Nodes.Add(item);
-
-                item.Reasons.Add(n);
-            }
+        AddResults(node,results);
     }
 
-    
+    private void AppendNode(Node node)
+    {
+        if (IsUniqueNode(node.Name))
+        {
+            Nodes.Add(node);
+        }
+    }
+
+    public void AddReasons(Node node, Node[]? reasons)
+    {
+        if (reasons != null)
+        {
+            node.AddReasons(reasons);
+            foreach (var reason in reasons)
+            {
+                AppendNode((reason));
+                var find = Nodes.Find(node1 => node1 == reason);
+
+                node.AddReason(find);
+                find.AddResult(node);
+            }
+        }
+    }
+
+    public void AddResults(Node node, Node[]? results)
+    {
+        if (results != null)
+        {
+            node.AddResults(results);
+            foreach (var variable in results)
+            {
+                AppendNode((variable));
+                var find = Nodes.Find(node1 => node1 == variable);
+
+                node.AddResult(find);
+                find.AddReason(node);
+            }
+        }
+    }
+
     protected void AddNode(string name, string[]? reasons, string[]? results)
     {
         var n = new Node(name);
-        if (Nodes.Find(node1 => node1.Name == name)==null)
-            Nodes.Add(n);
+        AppendNode(n);
         if (reasons != null)
             foreach (var item in reasons)
             {
+                AppendNode(new Node(item));
                 var node = Nodes.Find(node1 => node1.Name == item);
-                if (node == null)
-                {
-                    node=new Node(item);
-                    Nodes.Add(node);
-                }
+
                 n.AddReason(node);
                 node.AddResult(n);
             }
@@ -77,15 +97,16 @@ internal abstract class EventTree
         if (results != null)
             foreach (var item in results)
             {
+                AppendNode(new Node(item));
                 var node = Nodes.Find(node1 => node1.Name == item);
-                if (node == null)
-                {
-                    node = new Node(item);
-                    Nodes.Add(node);
-                }
                 n.AddResult(node);
                 node.AddReason(n);
             }
+    }
+
+    private bool IsUniqueNode(string name)
+    {
+        return Nodes.Find(node1 => node1.Name == name) == null;
     }
 
     public void PrintInfo()

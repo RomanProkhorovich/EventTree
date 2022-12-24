@@ -25,20 +25,38 @@
             return Name+"\nReasons:\n"+ reasons + "Results:\n" + res;
         }
 
+       
+
         public void AddReason(Node node)
         {
-            if (string.IsNullOrEmpty(node.Name) && Reasons.Find(n=>n.Name==node.Name)==null)
+            if ( Reasons.Find(n=>n.Name==node.Name)==null)
             {
                 Reasons.Add(node);
             }
         }
         public void AddResult(Node node)
         {
-            if (string.IsNullOrEmpty(node.Name) &&Results.Find(n => n.Name == node.Name) == null)
+            if ( Results.Find(n => n.Name == node.Name) == null)
             {
                 Results.Add(node);
             }
         }
+
+        public void AddReasons(Node[]? nodes)
+        {
+            foreach (var variable in nodes)
+            {
+                AddReason(variable);
+            }
+        }
+        public void AddResults(Node[]? nodes)
+        {
+            foreach (var variable in nodes)
+            {
+                AddResult(variable);
+            }
+        }
+       
 
     }
 }

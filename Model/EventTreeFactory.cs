@@ -24,7 +24,7 @@ namespace KSR.Model
                     var m = new OfficeEventTree();
                     m.Init();
                     return m;
-                    }
+                }
                 case EventTreeType.Factory:
                 {
                     var m = new ManufactoryEventTree();
